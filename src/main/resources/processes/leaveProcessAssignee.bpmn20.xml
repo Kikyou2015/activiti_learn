@@ -13,12 +13,40 @@
 				class="com.zcw.listener.impl.TaskListenerImpl1"></activiti:executionListener>
 		</extensionElements>
 		<startEvent id="startTaskEvent" name="Start"></startEvent>
-		<userTask id="writeReport" name="写申请报告"></userTask>
+		<userTask id="writeReport" name="写申请报告">
+			<extensionElements>
+				<activiti:taskListener event="assignment"
+					class="com.zcw.listener.impl.TaskListenerImpl1"></activiti:taskListener>
+				<activiti:taskListener event="create"
+					class="com.zcw.listener.impl.TaskListenerImpl1"></activiti:taskListener>
+				<activiti:taskListener event="complete"
+					class="com.zcw.listener.impl.TaskListenerImpl1"></activiti:taskListener>
+			</extensionElements>
+		</userTask>
 		<sequenceFlow id="flow1" sourceRef="startTaskEvent"
-			targetRef="writeReport"></sequenceFlow>
-		<userTask id="commitReport" name="提交报告"></userTask>
+			targetRef="writeReport">
+			<extensionElements>
+				<activiti:executionListener event="take"
+					class="com.zcw.listener.impl.TaskListenerImpl1"></activiti:executionListener>
+			</extensionElements>
+		</sequenceFlow>
+		<userTask id="commitReport" name="提交报告">
+			<extensionElements>
+				<activiti:taskListener event="assignment"
+					class="com.zcw.listener.impl.TaskListenerImpl1"></activiti:taskListener>
+				<activiti:taskListener event="create"
+					class="com.zcw.listener.impl.TaskListenerImpl1"></activiti:taskListener>
+				<activiti:taskListener event="complete"
+					class="com.zcw.listener.impl.TaskListenerImpl1"></activiti:taskListener>
+			</extensionElements>
+		</userTask>
 		<sequenceFlow id="flow2" sourceRef="writeReport"
-			targetRef="commitReport"></sequenceFlow>
+			targetRef="commitReport">
+			<extensionElements>
+				<activiti:executionListener event="take"
+					class="com.zcw.listener.impl.TaskListenerImpl1"></activiti:executionListener>
+			</extensionElements>
+		</sequenceFlow>
 		<userTask id="waitForAdmission" name="等待审核"></userTask>
 		<sequenceFlow id="flow3" sourceRef="commitReport"
 			targetRef="waitForAdmission"></sequenceFlow>

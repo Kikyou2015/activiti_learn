@@ -37,14 +37,13 @@ public class CandidateUserTest {
 	@Test
 	public void flowStartByListener() {
 		runtimeService.startProcessInstanceByKey("leaveProcessAssignee");
-		System.out.println();
 	}
 
 	@Test
 	public void completeTask() {
 		Map<String, Object> map = new HashMap<>();
 		map.put("user", "a");
-		String taskId = "75005";
+		String taskId = "120014";
 		taskService.complete(taskId, map);
 		System.out.println("完成任务，任务ID:" + taskId);
 	}
@@ -70,7 +69,7 @@ public class CandidateUserTest {
 
 	@Test
 	public void completeMyTask() {
-		String taskId = "65002";
+		String taskId = "135014";
 		taskService.complete(taskId);
 		System.out.println("完成任务，任务ID:" + taskId);
 	}
