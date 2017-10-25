@@ -6,6 +6,7 @@ import java.util.Map;
 
 import org.activiti.engine.RuntimeService;
 import org.activiti.engine.TaskService;
+import org.activiti.engine.runtime.ProcessInstance;
 import org.activiti.engine.task.Task;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -26,18 +27,25 @@ public class CandidateUserTest {
 	private TaskService taskService;
 
 	@Test
-	public void completeTask() {
-
+	public void flowStart() {
 		Map<String, Object> map = new HashMap<>();
-		TaskForm taskForm = new TaskForm(new Long(3), "", "");
-		map.put("users", "a,b,c");
-		map.put("day", taskForm.getDay());
+		map.put("user", "a");// 注意这是，对应${user}
+		ProcessInstance processInstance = runtimeService.startProcessInstanceByKey("leaveProcessAssignee", map);
+		System.out.println(processInstance.getId());// 流程图id
+	}
 
-		String taskId = "2507";
-		taskService.setVariable(taskId, "taskform", taskForm);
+	@Test
+	public void flowStartByListener() {
+		runtimeService.startProcessInstanceByKey("leaveProcessAssignee");
+		System.out.println();
+	}
 
-		taskService.complete(taskId, map);// 完成任务
-
+	@Test
+	public void completeTask() {
+		Map<String, Object> map = new HashMap<>();
+		map.put("user", "a");
+		String taskId = "75005";
+		taskService.complete(taskId, map);
 		System.out.println("完成任务，任务ID:" + taskId);
 	}
 
