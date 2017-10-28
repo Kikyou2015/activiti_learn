@@ -69,7 +69,7 @@ public class CandidateUserTest {
 
 	@Test
 	public void completeMyTask() {
-		String taskId = "135014";
+		String taskId = "195002";
 		taskService.complete(taskId);
 		System.out.println("完成任务，任务ID:" + taskId);
 	}

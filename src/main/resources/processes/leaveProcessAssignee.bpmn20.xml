@@ -47,7 +47,16 @@
 					class="com.zcw.listener.impl.TaskListenerImpl1"></activiti:executionListener>
 			</extensionElements>
 		</sequenceFlow>
-		<userTask id="waitForAdmission" name="等待审核"></userTask>
+		<userTask id="waitForAdmission" name="等待审核">
+			<extensionElements>
+				<activiti:taskListener event="create"
+					delegateExpression="${waitForAdmissonListener}"></activiti:taskListener>
+				<activiti:taskListener event="assignment"
+					class="com.zcw.listener.impl.WaitForAdmissonListener"></activiti:taskListener>
+				<activiti:taskListener event="complete"
+					class="com.zcw.listener.impl.WaitForAdmissonListener"></activiti:taskListener>
+			</extensionElements>
+		</userTask>
 		<sequenceFlow id="flow3" sourceRef="commitReport"
 			targetRef="waitForAdmission"></sequenceFlow>
 		<userTask id="apply_success" name="申请成功"></userTask>

@@ -9,6 +9,7 @@ target/
 .settings
 .springBeans
 .mvn/
+.bpmn/
 
 ### IntelliJ IDEA ###
 .idea
