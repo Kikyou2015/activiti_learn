@@ -4,7 +4,7 @@
     <startEvent id="leaveStartEvent" name="leaveStartEvent"></startEvent>
     <userTask id="applyTask" name="申请"></userTask>
     <sequenceFlow id="start_to_apply_flow" name="start_to_apply_flow" sourceRef="leaveStartEvent" targetRef="applyTask"></sequenceFlow>
-    <userTask id="managerApplyTask" name="经理审批" activiti:assignee="#{user}"></userTask>
+    <userTask id="managerApplyTask" name="经理审批" activiti:assignee="#{user}" activiti:candidateUsers="#{users}"></userTask>
     <exclusiveGateway id="offDaysCountGateway" name="offDaysCountGateway"></exclusiveGateway>
     <userTask id="mainManagerApplyTask" name="总经理审批" activiti:exclusive="false" activiti:assignee="${user}"></userTask>
     <endEvent id="leaveEndEvent" name="leaveEndEvent"></endEvent>
@@ -17,7 +17,7 @@
       <conditionExpression xsi:type="tFormalExpression"><![CDATA[${day>=3}]]></conditionExpression>
     </sequenceFlow>
     <sequenceFlow id="mainManagerApply_to_end_flow" name="mainManagerApply_to_end_flow" sourceRef="mainManagerApplyTask" targetRef="leaveEndEvent"></sequenceFlow>
-    <userTask id="partManagerApplyTask" name="部门经理审批" activiti:assignee="#{user}"></userTask>
+    <userTask id="partManagerApplyTask" name="部门经理审批" activiti:assignee="#{user}" activiti:candidateUsers="#{users}"></userTask>
     <sequenceFlow id="applyParallelGateway_to_partManagerApply_flow" name="applyParallelGateway_to_partManagerApply_flow" sourceRef="start_apply_parallelGateway" targetRef="partManagerApplyTask"></sequenceFlow>
     <parallelGateway id="start_apply_parallelGateway" name="start_apply_parallelGateway"></parallelGateway>
     <sequenceFlow id="apply_to_applyParallelGateway_flow" name="apply_to_applyParallelGateway_flow" sourceRef="applyTask" targetRef="start_apply_parallelGateway"></sequenceFlow>

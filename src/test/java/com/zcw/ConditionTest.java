@@ -60,7 +60,7 @@ public class ConditionTest {
 
 		map.put("user", "b");
 
-		String taskId = "262517";
+		String taskId = "272517";
 
 		taskService.setVariable(taskId, "taskForm", taskFormData);
 		taskService.complete(taskId, map);
@@ -93,7 +93,7 @@ public class ConditionTest {
 		map.put("user", "admin");
 		map.put("day", 4);
 
-		String taskId = "265012";
+		String taskId = "275012";
 		taskService.complete(taskId, map);
 
 		logger.info("完成任务，任务ID:{}", taskId);		
