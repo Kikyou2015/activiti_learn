@@ -1,111 +1,134 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<definitions xmlns="http://www.omg.org/spec/BPMN/20100524/MODEL"
-	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:activiti="http://activiti.org/bpmn"
-	xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:omgdc="http://www.omg.org/spec/DD/20100524/DC"
-	xmlns:omgdi="http://www.omg.org/spec/DD/20100524/DI" typeLanguage="http://www.w3.org/2001/XMLSchema"
-	expressionLanguage="http://www.w3.org/1999/XPath" targetNamespace="http://www.activiti.org/test">
-	<process id="conditionProcess" name="conditionProcess"
-		isExecutable="true">
-		<startEvent id="leaveStartEvent" name="leaveStartEvent"></startEvent>
-		<userTask id="applyTask" name="申请"></userTask>
-		<sequenceFlow id="start_to_apply_flow" name="start_to_apply_flow"
-			sourceRef="leaveStartEvent" targetRef="applyTask"></sequenceFlow>
-		<userTask id="managerApplyTask" name="经理审批"></userTask>
-		<exclusiveGateway id="offDaysCountGateway" name="offDaysCountGateway"></exclusiveGateway>
-		<userTask id="mainManagerApplyTask" name="总经理审批"
-			activiti:exclusive="false"></userTask>
-		<endEvent id="leaveEndEvent" name="leaveEndEvent"></endEvent>
-		<sequenceFlow id="apply_to_managerApply_flow" name="apply_to_managerApply_flow"
-			sourceRef="applyTask" targetRef="managerApplyTask"></sequenceFlow>
-		<sequenceFlow id="managerApply_to_offDaysCountGateway_flow"
-			name="managerApply_to_offDaysCountGateway_flow" sourceRef="managerApplyTask"
-			targetRef="offDaysCountGateway"></sequenceFlow>
-		<sequenceFlow id="offDaysCountGateway_to_end_flow" name="${day&lt;3}"
-			sourceRef="offDaysCountGateway" targetRef="leaveEndEvent">
-			<conditionExpression xsi:type="tFormalExpression"><![CDATA[${day<3}]]></conditionExpression>
-		</sequenceFlow>
-		<sequenceFlow id="offDaysCountGateway_to_mainManagerApply_flow"
-			name="${day&gt;=3}" sourceRef="offDaysCountGateway" targetRef="mainManagerApplyTask">
-			<conditionExpression xsi:type="tFormalExpression"><![CDATA[${day>=3}]]></conditionExpression>
-		</sequenceFlow>
-		<sequenceFlow id="mainManagerApply_to_end_flow" name="mainManagerApply_to_end_flow"
-			sourceRef="mainManagerApplyTask" targetRef="leaveEndEvent"></sequenceFlow>
-	</process>
-	<bpmndi:BPMNDiagram id="BPMNDiagram_conditionProcess">
-		<bpmndi:BPMNPlane bpmnElement="conditionProcess"
-			id="BPMNPlane_conditionProcess">
-			<bpmndi:BPMNShape bpmnElement="leaveStartEvent"
-				id="BPMNShape_leaveStartEvent">
-				<omgdc:Bounds height="35.0" width="35.0" x="330.0" y="100.0"></omgdc:Bounds>
-			</bpmndi:BPMNShape>
-			<bpmndi:BPMNShape bpmnElement="applyTask" id="BPMNShape_applyTask">
-				<omgdc:Bounds height="55.0" width="105.0" x="295.0" y="180.0"></omgdc:Bounds>
-			</bpmndi:BPMNShape>
-			<bpmndi:BPMNShape bpmnElement="managerApplyTask"
-				id="BPMNShape_managerApplyTask">
-				<omgdc:Bounds height="55.0" width="105.0" x="295.0" y="280.0"></omgdc:Bounds>
-			</bpmndi:BPMNShape>
-			<bpmndi:BPMNShape bpmnElement="offDaysCountGateway"
-				id="BPMNShape_offDaysCountGateway">
-				<omgdc:Bounds height="40.0" width="40.0" x="327.0" y="390.0"></omgdc:Bounds>
-			</bpmndi:BPMNShape>
-			<bpmndi:BPMNShape bpmnElement="mainManagerApplyTask"
-				id="BPMNShape_mainManagerApplyTask">
-				<omgdc:Bounds height="55.0" width="105.0" x="440.0" y="383.0"></omgdc:Bounds>
-			</bpmndi:BPMNShape>
-			<bpmndi:BPMNShape bpmnElement="leaveEndEvent"
-				id="BPMNShape_leaveEndEvent">
-				<omgdc:Bounds height="35.0" width="35.0" x="330.0" y="480.0"></omgdc:Bounds>
-			</bpmndi:BPMNShape>
-			<bpmndi:BPMNEdge bpmnElement="start_to_apply_flow"
-				id="BPMNEdge_start_to_apply_flow">
-				<omgdi:waypoint x="347.0" y="135.0"></omgdi:waypoint>
-				<omgdi:waypoint x="347.0" y="180.0"></omgdi:waypoint>
-				<bpmndi:BPMNLabel>
-					<omgdc:Bounds height="14.0" width="97.0" x="357.0" y="135.0"></omgdc:Bounds>
-				</bpmndi:BPMNLabel>
-			</bpmndi:BPMNEdge>
-			<bpmndi:BPMNEdge bpmnElement="apply_to_managerApply_flow"
-				id="BPMNEdge_apply_to_managerApply_flow">
-				<omgdi:waypoint x="347.0" y="235.0"></omgdi:waypoint>
-				<omgdi:waypoint x="347.0" y="280.0"></omgdi:waypoint>
-				<bpmndi:BPMNLabel>
-					<omgdc:Bounds height="42.0" width="100.0" x="357.0" y="235.0"></omgdc:Bounds>
-				</bpmndi:BPMNLabel>
-			</bpmndi:BPMNEdge>
-			<bpmndi:BPMNEdge bpmnElement="managerApply_to_offDaysCountGateway_flow"
-				id="BPMNEdge_managerApply_to_offDaysCountGateway_flow">
-				<omgdi:waypoint x="347.0" y="335.0"></omgdi:waypoint>
-				<omgdi:waypoint x="347.0" y="390.0"></omgdi:waypoint>
-				<bpmndi:BPMNLabel>
-					<omgdc:Bounds height="56.0" width="100.0" x="357.0" y="335.0"></omgdc:Bounds>
-				</bpmndi:BPMNLabel>
-			</bpmndi:BPMNEdge>
-			<bpmndi:BPMNEdge bpmnElement="offDaysCountGateway_to_end_flow"
-				id="BPMNEdge_offDaysCountGateway_to_end_flow">
-				<omgdi:waypoint x="347.0" y="430.0"></omgdi:waypoint>
-				<omgdi:waypoint x="347.0" y="480.0"></omgdi:waypoint>
-				<bpmndi:BPMNLabel>
-					<omgdc:Bounds height="14.0" width="44.0" x="357.0" y="430.0"></omgdc:Bounds>
-				</bpmndi:BPMNLabel>
-			</bpmndi:BPMNEdge>
-			<bpmndi:BPMNEdge bpmnElement="offDaysCountGateway_to_mainManagerApply_flow"
-				id="BPMNEdge_offDaysCountGateway_to_mainManagerApply_flow">
-				<omgdi:waypoint x="367.0" y="410.0"></omgdi:waypoint>
-				<omgdi:waypoint x="440.0" y="410.0"></omgdi:waypoint>
-				<bpmndi:BPMNLabel>
-					<omgdc:Bounds height="14.0" width="100.0" x="377.0" y="410.0"></omgdc:Bounds>
-				</bpmndi:BPMNLabel>
-			</bpmndi:BPMNEdge>
-			<bpmndi:BPMNEdge bpmnElement="mainManagerApply_to_end_flow"
-				id="BPMNEdge_mainManagerApply_to_end_flow">
-				<omgdi:waypoint x="492.0" y="438.0"></omgdi:waypoint>
-				<omgdi:waypoint x="492.0" y="497.0"></omgdi:waypoint>
-				<omgdi:waypoint x="365.0" y="497.0"></omgdi:waypoint>
-				<bpmndi:BPMNLabel>
-					<omgdc:Bounds height="42.0" width="100.0" x="502.0" y="438.0"></omgdc:Bounds>
-				</bpmndi:BPMNLabel>
-			</bpmndi:BPMNEdge>
-		</bpmndi:BPMNPlane>
-	</bpmndi:BPMNDiagram>
+<definitions xmlns="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:activiti="http://activiti.org/bpmn" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:omgdc="http://www.omg.org/spec/DD/20100524/DC" xmlns:omgdi="http://www.omg.org/spec/DD/20100524/DI" typeLanguage="http://www.w3.org/2001/XMLSchema" expressionLanguage="http://www.w3.org/1999/XPath" targetNamespace="http://www.activiti.org/test">
+  <process id="conditionProcess" name="conditionProcess" isExecutable="true">
+    <startEvent id="leaveStartEvent" name="leaveStartEvent"></startEvent>
+    <userTask id="applyTask" name="申请"></userTask>
+    <sequenceFlow id="start_to_apply_flow" name="start_to_apply_flow" sourceRef="leaveStartEvent" targetRef="applyTask"></sequenceFlow>
+    <userTask id="managerApplyTask" name="经理审批" activiti:assignee="#{user}"></userTask>
+    <exclusiveGateway id="offDaysCountGateway" name="offDaysCountGateway"></exclusiveGateway>
+    <userTask id="mainManagerApplyTask" name="总经理审批" activiti:exclusive="false" activiti:assignee="${user}"></userTask>
+    <endEvent id="leaveEndEvent" name="leaveEndEvent"></endEvent>
+    <sequenceFlow id="applyParallelGateway_to_managerApply_flow" name="applyParallelGateway_to_managerApply_flow" sourceRef="start_apply_parallelGateway" targetRef="managerApplyTask"></sequenceFlow>
+    <sequenceFlow id="managerApply_to_applyFinishParallelGateway_flow" name="managerApply_to_applyFinishParallelGateway_flow" sourceRef="managerApplyTask" targetRef="end_apply_parallelGateway"></sequenceFlow>
+    <sequenceFlow id="offDaysCountGateway_to_end_flow" name="${day&lt;3}" sourceRef="offDaysCountGateway" targetRef="leaveEndEvent">
+      <conditionExpression xsi:type="tFormalExpression"><![CDATA[${day<3}]]></conditionExpression>
+    </sequenceFlow>
+    <sequenceFlow id="offDaysCountGateway_to_mainManagerApply_flow" name="${day&gt;=3}" sourceRef="offDaysCountGateway" targetRef="mainManagerApplyTask">
+      <conditionExpression xsi:type="tFormalExpression"><![CDATA[${day>=3}]]></conditionExpression>
+    </sequenceFlow>
+    <sequenceFlow id="mainManagerApply_to_end_flow" name="mainManagerApply_to_end_flow" sourceRef="mainManagerApplyTask" targetRef="leaveEndEvent"></sequenceFlow>
+    <userTask id="partManagerApplyTask" name="部门经理审批" activiti:assignee="#{user}"></userTask>
+    <sequenceFlow id="applyParallelGateway_to_partManagerApply_flow" name="applyParallelGateway_to_partManagerApply_flow" sourceRef="start_apply_parallelGateway" targetRef="partManagerApplyTask"></sequenceFlow>
+    <parallelGateway id="start_apply_parallelGateway" name="start_apply_parallelGateway"></parallelGateway>
+    <sequenceFlow id="apply_to_applyParallelGateway_flow" name="apply_to_applyParallelGateway_flow" sourceRef="applyTask" targetRef="start_apply_parallelGateway"></sequenceFlow>
+    <parallelGateway id="end_apply_parallelGateway" name="end_apply_parallelGateway"></parallelGateway>
+    <sequenceFlow id="partManagerApply_to_applyFinishParallelGateway_flow" name="partManagerApply_to_applyFinishParallelGateway_flow" sourceRef="partManagerApplyTask" targetRef="end_apply_parallelGateway"></sequenceFlow>
+    <sequenceFlow id="endApplyParallelGateway_to_offDaysCountGateway_flow" name="endApplyParallelGateway_to_offDaysCountGateway_flow" sourceRef="end_apply_parallelGateway" targetRef="offDaysCountGateway"></sequenceFlow>
+  </process>
+  <bpmndi:BPMNDiagram id="BPMNDiagram_conditionProcess">
+    <bpmndi:BPMNPlane bpmnElement="conditionProcess" id="BPMNPlane_conditionProcess">
+      <bpmndi:BPMNShape bpmnElement="leaveStartEvent" id="BPMNShape_leaveStartEvent">
+        <omgdc:Bounds height="35.0" width="35.0" x="330.0" y="20.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="applyTask" id="BPMNShape_applyTask">
+        <omgdc:Bounds height="55.0" width="105.0" x="295.0" y="100.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="managerApplyTask" id="BPMNShape_managerApplyTask">
+        <omgdc:Bounds height="55.0" width="105.0" x="160.0" y="302.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="offDaysCountGateway" id="BPMNShape_offDaysCountGateway">
+        <omgdc:Bounds height="40.0" width="40.0" x="327.0" y="527.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="mainManagerApplyTask" id="BPMNShape_mainManagerApplyTask">
+        <omgdc:Bounds height="55.0" width="105.0" x="435.0" y="520.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="leaveEndEvent" id="BPMNShape_leaveEndEvent">
+        <omgdc:Bounds height="35.0" width="35.0" x="330.0" y="620.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="partManagerApplyTask" id="BPMNShape_partManagerApplyTask">
+        <omgdc:Bounds height="55.0" width="105.0" x="435.0" y="302.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="start_apply_parallelGateway" id="BPMNShape_start_apply_parallelGateway">
+        <omgdc:Bounds height="40.0" width="40.0" x="327.0" y="201.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="end_apply_parallelGateway" id="BPMNShape_end_apply_parallelGateway">
+        <omgdc:Bounds height="40.0" width="40.0" x="327.0" y="411.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge bpmnElement="start_to_apply_flow" id="BPMNEdge_start_to_apply_flow">
+        <omgdi:waypoint x="347.0" y="55.0"></omgdi:waypoint>
+        <omgdi:waypoint x="347.0" y="100.0"></omgdi:waypoint>
+        <bpmndi:BPMNLabel>
+          <omgdc:Bounds height="14.0" width="97.0" x="357.0" y="55.0"></omgdc:Bounds>
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="applyParallelGateway_to_managerApply_flow" id="BPMNEdge_applyParallelGateway_to_managerApply_flow">
+        <omgdi:waypoint x="327.0" y="221.0"></omgdi:waypoint>
+        <omgdi:waypoint x="212.0" y="220.0"></omgdi:waypoint>
+        <omgdi:waypoint x="212.0" y="302.0"></omgdi:waypoint>
+        <bpmndi:BPMNLabel>
+          <omgdc:Bounds height="56.0" width="100.0" x="124.0" y="157.0"></omgdc:Bounds>
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="managerApply_to_applyFinishParallelGateway_flow" id="BPMNEdge_managerApply_to_applyFinishParallelGateway_flow">
+        <omgdi:waypoint x="212.0" y="357.0"></omgdi:waypoint>
+        <omgdi:waypoint x="212.0" y="430.0"></omgdi:waypoint>
+        <omgdi:waypoint x="327.0" y="431.0"></omgdi:waypoint>
+        <bpmndi:BPMNLabel>
+          <omgdc:Bounds height="56.0" width="100.0" x="123.0" y="450.0"></omgdc:Bounds>
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="offDaysCountGateway_to_end_flow" id="BPMNEdge_offDaysCountGateway_to_end_flow">
+        <omgdi:waypoint x="347.0" y="567.0"></omgdi:waypoint>
+        <omgdi:waypoint x="347.0" y="620.0"></omgdi:waypoint>
+        <bpmndi:BPMNLabel>
+          <omgdc:Bounds height="14.0" width="44.0" x="357.0" y="567.0"></omgdc:Bounds>
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="offDaysCountGateway_to_mainManagerApply_flow" id="BPMNEdge_offDaysCountGateway_to_mainManagerApply_flow">
+        <omgdi:waypoint x="367.0" y="547.0"></omgdi:waypoint>
+        <omgdi:waypoint x="435.0" y="547.0"></omgdi:waypoint>
+        <bpmndi:BPMNLabel>
+          <omgdc:Bounds height="14.0" width="50.0" x="377.0" y="547.0"></omgdc:Bounds>
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="mainManagerApply_to_end_flow" id="BPMNEdge_mainManagerApply_to_end_flow">
+        <omgdi:waypoint x="487.0" y="575.0"></omgdi:waypoint>
+        <omgdi:waypoint x="487.0" y="637.0"></omgdi:waypoint>
+        <omgdi:waypoint x="365.0" y="637.0"></omgdi:waypoint>
+        <bpmndi:BPMNLabel>
+          <omgdc:Bounds height="42.0" width="100.0" x="497.0" y="575.0"></omgdc:Bounds>
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="applyParallelGateway_to_partManagerApply_flow" id="BPMNEdge_applyParallelGateway_to_partManagerApply_flow">
+        <omgdi:waypoint x="367.0" y="221.0"></omgdi:waypoint>
+        <omgdi:waypoint x="487.0" y="220.0"></omgdi:waypoint>
+        <omgdi:waypoint x="487.0" y="302.0"></omgdi:waypoint>
+        <bpmndi:BPMNLabel>
+          <omgdc:Bounds height="56.0" width="100.0" x="496.0" y="157.0"></omgdc:Bounds>
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="apply_to_applyParallelGateway_flow" id="BPMNEdge_apply_to_applyParallelGateway_flow">
+        <omgdi:waypoint x="347.0" y="155.0"></omgdi:waypoint>
+        <omgdi:waypoint x="347.0" y="201.0"></omgdi:waypoint>
+        <bpmndi:BPMNLabel>
+          <omgdc:Bounds height="42.0" width="100.0" x="357.0" y="155.0"></omgdc:Bounds>
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="partManagerApply_to_applyFinishParallelGateway_flow" id="BPMNEdge_partManagerApply_to_applyFinishParallelGateway_flow">
+        <omgdi:waypoint x="487.0" y="357.0"></omgdi:waypoint>
+        <omgdi:waypoint x="487.0" y="430.0"></omgdi:waypoint>
+        <omgdi:waypoint x="367.0" y="431.0"></omgdi:waypoint>
+        <bpmndi:BPMNLabel>
+          <omgdc:Bounds height="56.0" width="100.0" x="490.0" y="450.0"></omgdc:Bounds>
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="endApplyParallelGateway_to_offDaysCountGateway_flow" id="BPMNEdge_endApplyParallelGateway_to_offDaysCountGateway_flow">
+        <omgdi:waypoint x="347.0" y="451.0"></omgdi:waypoint>
+        <omgdi:waypoint x="347.0" y="527.0"></omgdi:waypoint>
+        <bpmndi:BPMNLabel>
+          <omgdc:Bounds height="56.0" width="100.0" x="231.0" y="450.0"></omgdc:Bounds>
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+    </bpmndi:BPMNPlane>
+  </bpmndi:BPMNDiagram>
 </definitions>
