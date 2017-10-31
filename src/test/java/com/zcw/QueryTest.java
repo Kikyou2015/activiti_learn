@@ -1,8 +1,12 @@
 package com.zcw;
 
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.util.List;
+import java.util.zip.ZipInputStream;
 
 import org.activiti.engine.ManagementService;
+import org.activiti.engine.RepositoryService;
 import org.activiti.engine.TaskService;
 import org.activiti.engine.task.Task;
 import org.junit.Test;
@@ -25,6 +29,9 @@ public class QueryTest {
 	@Autowired
 	private TaskService taskService;
 
+	@Autowired
+	private RepositoryService repositoryService;
+
 	@Test
 	public void nativeTaskQuery() {
 
@@ -42,5 +49,14 @@ public class QueryTest {
 			logger.info("taskId= {},taskName= {},taskAssignee= {},taskCreateDate= {}", task.getId(), task.getName(),
 					task.getAssignee(), task.getCreateTime());
 		}
+	}
+
+	@Test
+	public void deployProgrammatically() throws FileNotFoundException {
+		String barFileName = "d:\\path\\to\\process-one.bar";
+
+		ZipInputStream inputStream = new ZipInputStream(new FileInputStream(barFileName));
+
+		repositoryService.createDeployment().name("process-one.bar").addZipInputStream(inputStream).deploy();
 	}
 }

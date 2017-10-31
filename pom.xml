@@ -26,19 +26,17 @@
 	</properties>
 
 	<dependencies>
-	
+
 		<!-- https://mvnrepository.com/artifact/org.activiti/activiti-spring-boot-starter-basic -->
 		<dependency>
-		    <groupId>org.activiti</groupId>
-		    <artifactId>activiti-spring-boot-starter-basic</artifactId>
-		    <version>${activiti.version}</version>
+			<groupId>org.activiti</groupId>
+			<artifactId>activiti-spring-boot-starter-basic</artifactId>
+			<version>${activiti.version}</version>
 		</dependency>
 
-		<!-- <dependency>
-			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-starter-web</artifactId>
-		</dependency> -->
-		
+		<!-- <dependency> <groupId>org.springframework.boot</groupId> <artifactId>spring-boot-starter-web</artifactId> 
+			</dependency> -->
+
 		<dependency>
 			<groupId>org.activiti</groupId>
 			<artifactId>activiti-spring-boot-starter-rest-api</artifactId>
@@ -60,17 +58,22 @@
 			<artifactId>spring-boot-starter-test</artifactId>
 			<scope>test</scope>
 		</dependency>
-		
+
 		<dependency>
-		    <groupId>mysql</groupId>
-		    <artifactId>mysql-connector-java</artifactId>
+			<groupId>mysql</groupId>
+			<artifactId>mysql-connector-java</artifactId>
 		</dependency>
 
 
-		<!-- <dependency>
-			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-starter-data-jpa</artifactId>
-		</dependency> -->
+		<!-- <dependency> <groupId>org.springframework.boot</groupId> <artifactId>spring-boot-starter-data-jpa</artifactId> 
+			</dependency> -->
+		<!-- https://mvnrepository.com/artifact/de.flapdoodle.embed/de.flapdoodle.embed.memcached -->
+		<dependency>
+			<groupId>de.flapdoodle.embed</groupId>
+			<artifactId>de.flapdoodle.embed.memcached</artifactId>
+			<version>1.06.4</version>
+		</dependency>
+
 	</dependencies>
 
 	<build>
